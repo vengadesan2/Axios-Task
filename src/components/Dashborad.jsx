@@ -12,9 +12,10 @@ let navigate =useNavigate()
 
    const  getDates = async()=>{
     try{
-        let res = await axios.get(APP_URL)
+        let res = await axios.get(`${APP_URL}/user`)
       if(res.status===200){
-            setDatas(res.data)
+        // console.log(res)
+            setDatas(res.data.user)
       }
     }
     catch(error){
@@ -24,7 +25,7 @@ let navigate =useNavigate()
 
 const handleDelete = async(id)=>{
     try {
-      let res = await axios.delete(`${APP_URL}/${id}`)
+      let res = await axios.delete(`${APP_URL}/user/${id}`)
       if(res.status === 200){
         getDates()
       }
@@ -58,15 +59,15 @@ useEffect(()=>{
         </thead>
         <tbody>
         {
-            datas.map((e,i)=>{
-                 return <tr key={i}>
-                <td>{i+1}</td>
+            datas.map((e,_id)=>{
+                 return <tr key={_id}>
+                <td>{_id+1}</td>
                 <td>{e.name}</td>
-                <td>{e.username}</td>
-                <td>{e.email}</td>
-                <td>{e.doorNo},{e.street},{e.city},{e.zipcode}</td>
-                <td>{e.phone}</td>
-                <td>{e.website}</td>
+                <td>{e.email}</td>/
+                <td>{e.password}</td>
+                <td>{e.status}</td>
+                <td>{e.role}</td>
+                <td>{e.createAt}</td>
                 <td>
                   <label className="switch">
                     <input type="checkbox" defaultChecked={e.status} />
@@ -74,9 +75,9 @@ useEffect(()=>{
                   </label>
                 </td>
                 <td>
-                  <Button variant='secondary' onClick={()=>navigate(`/edit/${e.id}`)} >Edit</Button>
+                  <Button variant='secondary' onClick={()=>navigate(`/edit/${e._id}`)} >Edit</Button>
                   &nbsp;
-                  <Button variant='danger' onClick={()=>handleDelete(e.id)}>Delete</Button>
+                  <Button variant='danger' onClick={()=>handleDelete(e._id)}>Delete</Button>
                 </td>
               </tr>
             })

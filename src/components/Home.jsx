@@ -7,7 +7,7 @@ function Home() {
     let [datas,setDatas] = useState([])
     let  getDatas=async()=>{
         try{
-         let res = await axios.get(APP_URL)
+         let res = await axios.get(`${APP_URL}/user`)
          if(res.status===200){
             setDatas(res.data)
          }
@@ -23,12 +23,12 @@ function Home() {
   <Topbar/>
      
   <div className='previewWrapper'>
-    {
+    {/* {
       datas.map((e)=>{
-        return <DisplayCard name={e.name} username={e.username} email={e.email} website={e.website} key={e.id}/>
+        return <DisplayCard name={e.name} username={e.email} email={e.password} website={e.status} role={e.role}  key={e._id}/>
               
     })
-    }
+    } */}
     </div>
 
     </>
